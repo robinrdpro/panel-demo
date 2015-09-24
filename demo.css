@@ -98,9 +98,9 @@ body .img-container.ui-state-hover {
     margin-right: 20px;
 }
 .description {
-    max-height: 5.9em;  /* max lines = 7 */
-    max-width: 90%;
-    overflow: hidden;
+    max-height: 5.1em;  /* max lines = 3 */
+    max-width: calc(90% - 360px);
+    overflow: auto;
 }
 
 h2.main-title {
