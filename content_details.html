@@ -1,0 +1,160 @@
+<!-- Copyright 2014 TiVo Inc. All Rights Reserved. -->
+
+<!--
+    Default set of templates for the widgets in content_details.js that render various
+    components of metadata about an individual content item (Movie or Episode).  Other widgets
+    have custom versions of these templates, but these are the most basic so the widget is
+    out of the box useful.
+-->
+
+<!-- Generic templates for Movies and TV Episodes -->
+<script id="generic-content-details-template" type="text/html">
+    <div class="content-detail-panel">
+        <div class="js-image-data poster-container poster-set-D"></div>
+        <div class="content-description">
+            <h2 class="main-title">{{> content-details-title-line}}</h2>
+            <div class="detail-panel-subtitle">{{> content-details-subtitle-line}}</div>
+            {{> content-details-description}}
+            {{> content-details-notifications}} 
+            {{> content-details-branding}}        
+            {{> content-details-action-buttons}}
+        </div>
+    </div>     
+</script>
+
+<!-- Template for Episodes Group & Content Detail Pages - TV shows -->
+<script id="episode-detail-panel-template" type="text/html">
+    <div class="content-detail-panel">
+        <div class="js-image-data hide-for-mini poster-container poster-set-D"></div>
+        {{> content-description-template}}
+    </div>
+    {{> content-supplemental-panel-template}}     
+</script>
+
+<!-- Template for Movie Content Detail Pages - Larger Poster size -->
+<script id="movie-detail-panel-template" type="text/html">
+    <div class="content-detail-panel">
+        <div class="js-image-data hide-for-mini poster-container poster-set-B"></div>
+        {{> content-description-template}}
+    </div>
+    {{> content-supplemental-panel-template}}
+</script>
+
+<script id="content-description-template" type="text/html">
+    <div class="content-description">
+        <h2 class="main-title">{{> content-details-title-line}}</h2>
+        <div class="hide-for-mini">
+            <div class="detail-panel-subtitle">{{> content-details-subtitle-line}}</div>
+            {{> content-details-description}}
+            {{> content-details-notifications}} 
+            {{> content-details-branding}}        
+            {{> content-details-action-buttons}}
+        </div>
+    </div> 
+</script>
+
+<script id="content-supplemental-panel-template" type="text/html">
+    <div class="content-supplemental-panel hide-for-mini">
+        <div class="cast-wrapper">
+            <div class="js-credit-widget cast-container"></div>
+        </div>
+        <div class="suggestions-wrapper">
+            {{> if-you-like-this-panel-template}}
+        </div>
+    </div>   
+</script>
+
+<script id="if-you-like-this-panel-template" type="text/html">
+    <div class="js-if-you-like-this if-you-like-this-panel">
+        <h3 class="heading">{{title_label_ifYouLikeThis}}</h3>
+        <div class="js-carousel js-pagination-none carousel-container navigation-outside poster-set-F if-you-like-this titles-bottom" data-display-partial-items='true'>
+            <ul class="items"></ul>
+        </div>
+    </div>
+</script>
+
+<!-- Title lines for each of Movies and TV Episodes -->
+<script id="content-details-title-line" type="text/html">
+    <span class="js-thumbs-icon thumbs-icon"></span>
+    <span class="js-title text-highlight"></span>
+</script>
+
+<!-- Second lines for Movies and TV Episodes
+     Movies have star-ratings, duration and status icons.
+     TV Episodes have episode-title and status icons. -->
+<script id="content-details-subtitle-line" type="text/html">
+    <span class="js-star-rating"></span>
+    <span class="js-duration movie-duration text-highlight"></span>
+    <span class="js-episode-title episode-title text-highlight"></span>
+    <ul class="js-icon-strip status-icons"></ul>
+</script>
+
+<script id="content-details-description" type="text/html">
+    <div class="js-description description"></div>
+    <div class="description-trailer text-secondary">
+        {{> content-details-rating-genre-showcard}}
+    </div>
+</script>
+
+<script id="content-details-rating-genre-showcard" type="text/html">
+    <span class="js-duration duration"></span>
+    <span class="js-tv-rating tv-rating"></span>
+    <span class="js-genre-list genre-list"></span>
+    <span class="js-series-show-card series-show-card"></span>
+</script>
+
+<script id="content-details-notifications" type="text/html">
+    <div class="js-notification-area notification-area"></div>
+</script>
+
+<script id="content-details-branding" type="text/html">
+    <div class="js-branding-partners branding-partners"></div>
+</script>
+
+<script id="content-details-action-buttons" type="text/html">
+    <ul class="js-actions action-buttons"></ul>
+    <div class="js-tvod-message tvod-message-container"></div>
+</script>
+
+<!------------------------------------------------------------------------------------------->
+<!-- These are the default template snippets loaded by individual widgets when constructing Content Detail Panel.
+<!------------------------------------------------------------------------------------------->
+<script id="content-details-image" type="text/html">
+    <div>
+        <div class="img-container show-thumbnail"></div>
+    </div>
+</script>
+
+<script id="content-details-title" type="text/html">
+    <span class="ellipses-truncated-text">{{title}}</span><span>{{movieYear}}</span>
+</script>
+
+<script id="content-details-icon-strip" type="text/html">
+    <li class="status-icon image-new icon-tool-tip"></li>
+    <li class="status-icon image-hd icon-tool-tip"></li>
+    <li class="status-icon image-3d icon-tool-tip"></li>
+    <li class="status-icon image-available-online icon-tool-tip"></li>
+    <li class="status-icon image-play-online icon-tool-tip cancel-selectable"></li>
+</script>
+
+<script id="content-details-episode-title" type="text/html">
+    <span class="episode-title-link">
+        <span class="js-episode-title-link episode-title-season"><span
+                class="episode-name"><span class="episode-title-quotes">"</span><span
+                class="ellipses-truncated-text">{{episodeTitle}}</span><span
+                class="episode-title-quotes">"</span><span
+                class="js-season-episode season-in-title season-info add-season-parens">{{seasonAndEpisodeNumbers}}</span></span></span>
+    </span>
+</script>
+
+<script id="provider-icon-template" type="text/html">
+    <li class="branding-partner-link">
+        <img class="branding-partner-icon" title="{{partnerDisplayName}}" alt="{{partnerDisplayName}}" src="{{partnerLogo}}"/>
+    </li>
+</script>
+
+<script id="status-icon-template" type="text/html">
+    <li class="branding-partner-link">
+        <span class="recording-icon icon-tool-tip {{recordingStatusIcon}}"></span>
+    </li>
+</script>

@@ -1,0 +1,725 @@
+<!-- Copyright 2015 TiVo Inc. All Rights Reserved. -->
+
+<!------------------------------------------------------------------------------------------->
+<!-- These are the overall templates used for the dialog panel on various popups.
+<!------------------------------------------------------------------------------------------->
+
+<!-- OnePass options dialog, used for both create and for modify -->
+<script id="onepass-options-dialog" type="text/html">
+	<div class="options-dialog">
+        {{> onepass-options-program-info}}
+        <form>
+            <input name="bodyId" type="hidden" value="{{bodyId}}">
+            <input name="subscriptionId" type="hidden" value="{{subscriptionId}}">
+            <fieldset>
+                <div class="onepass-options container-divider">
+                    {{> dialog-dropdowns-onepass-options}}
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="recording-options container-divider">
+                    {{> dialog-dropdowns-recording-options}}
+                </div>
+            </fieldset>
+            <div class="container-divider"></div>
+            <div class="user-actions">
+                <ul class="vertical-list text-center js-button-display-rules extra-wide-buttons">
+                    <li><button type="submit" class="default-button submit-button get-onepass-button">{{title_button_creatOnePassWithTheseOptions}}</button></li>
+                    <li><button type="submit" class="default-button onepass-options-button">{{title_button_modifyOnePassOptions}}</button></li>
+                    <li><button type="button" class="default-button cancel-onepass-button" data-action="cancelOnePassAction">{{title_button_cancelOnePass}}</button></li>
+                    <li><button type="button" class="default-button get-tivo-dvr-button link-primary" data-destination="{{upsell_getTiVoDvr_link}}">{{title_button_shopTiVoDvr}}</button></li>
+                    <li><button type="button" class="default-button dont-save-button" data-event="cancel">{{title_button_dontSaveOnePass}}</button></li>
+                    <li><button type="button" class="default-button dont-change-button" data-event="cancel">{{title_button_dontChangeOnePass}}</button></li>
+                </ul>
+            </div>
+        </form>
+	</div>
+</script>
+
+<!-- Recordings options dialog, used for both create and for modify -->
+<script id="recording-options-dialog" type="text/html">
+    <div class="options-dialog">
+        {{> dialog-program-info}}
+        <form>
+            <input name="recordingId" type="hidden" value="{{recordingId}}">
+            <input name="offerId" type="hidden" value="{{selectedOfferId}}">
+            <fieldset>
+                <div class="recording-options container-divider">
+                    <div class="dialog-dropdown">
+                        <label>{{title_label_dvr}}</label>
+                        <span class="js-dvr-name dialog-dvr-name"></span>
+                    </div>
+                    {{> dialog-dropdowns-recording-only-options}}
+                </div>
+            </fieldset>
+            <div class="container-divider"></div>
+            <div class="user-actions">
+                <ul class="vertical-list text-center js-button-display-rules extra-wide-buttons">
+                    <li><button type="submit" class="default-button record-episode-button">{{title_button_recordEpisodeWithTheseOptions}}</button></li>
+                    <li><button type="submit" class="default-button record-movie-button">{{title_button_recordMovieWithTheseOptions}}</button></li>
+                    <li><button type="submit" class="default-button recording-options-button">{{title_button_modifyRecording}}</button></li>
+                    <li><button type="button" class="default-button cancel-record-options-button" data-event="cancel">{{title_button_dontRecordOptions}}</button></li>
+                    <li><button type="button" class="default-button cancel-recording-button" data-action="cancelRecording">{{title_button_cancelThisRecording}}</button></li>
+                    <li><button type="button" class="default-button get-onepass-button" data-action="getOnePassAction">{{title_button_createOnePass}}</button></li>
+                    <li><button type="button" class="default-button onepass-options-button" data-action="getOnePassAction">{{title_button_modifyOnePassOptions}}</button></li>
+                    <li><button type="button" class="default-button cancel-episode-button" data-event="cancel">{{title_button_dontRecordThisEpisode}}</button></li>
+                    <li><button type="button" class="default-button cancel-movie-button" data-event="cancel">{{title_button_dontRecordThisMovie}}</button></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</script>
+
+<!-- Delete Dialog Templates - Single Item -->
+<script id="delete-single-dialog" type="text/html">
+    <div class="delete-dialog">
+        {{> dialog-what-would-you-like-message}}
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="delete-streaming-button default-button submit-button" data-event="delete">{{title_button_deleteStreamingVideo}}</button></li>
+                <li><button type="button" class="delete-recording-button default-button submit-button" data-event="delete">{{title_button_deleteRecording}}</button></li>
+                <li><button type="button" class="delete-replace-button default-button submit-button" data-event="deleteReplaceRecordings">{{title_button_replaceRecordingWithStreaming}}</button></li>
+                <li><button type="button" class="default-button cancel-button" data-event="cancel">{{title_button_cancel}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- Delete Dialog Templates - Folder -->
+<script id="delete-folder-dialog" type="text/html">
+    <div class="delete-dialog">
+        {{> dialog-what-would-you-like-message}}
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="delete-contents-button default-button submit-button" data-event="delete">{{title_button_deleteEverythingInFolder}}</button></li>
+                <li><button type="button" class="delete-replace-button default-button submit-button" data-event="deleteReplaceRecordings">{{title_button_deleteRecordingsReplaceStreaming}}</button></li>
+                <li><button type="button" class="delete-remove-onepass-button default-button submit-button" data-event="deleteRemoveOnepass">{{title_button_deleteCancelOnePass}}</button></li>
+                <li><button type="button" class="default-button cancel-button" data-event="cancel">{{title_button_cancel}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- Delete Dialog Templates - Multiple -->
+<script id="delete-multiple-dialog" type="text/html">
+    <div class="delete-dialog">
+        {{> dialog-what-would-you-like-message}}
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="delete-contents-button default-button submit-button" data-event="delete">{{title_button_deleteAll}}</button></li>
+                <li><button type="button" class="delete-replace-button default-button submit-button" data-event="deleteReplaceRecordings">{{title_button_deleteRecordingsReplaceStreaming}}</button></li>
+                <li><button type="button" class="default-button cancel-button" data-event="cancel">{{title_button_cancel}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- Delete single subscription -->
+<script id="delete-single-subscription" type="text/html">
+    <div class="delete-dialog show-delete-remove-onepass">
+        <p class="dialog-message text-center">{{message_doYouWantToCancelThisOnePass}}</p>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center wide-buttons">
+                <li><button type="button" class="delete-remove-onepass-button default-button submit-button" data-event="delete">{{title_button_cancelOnePassConfirm}}</button></li>
+                <li><button type="button" class="default-button cancel-button" data-event="cancel">{{title_button_dontCancelThisOnePassConfirm}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- Delete multiple subscriptions -->
+<script id="delete-multiple-subscriptions" type="text/html">
+    <div class="delete-dialog show-delete-remove-onepass">
+        <p class="dialog-message text-center">{{message_doYouWantToCancelTheseOnePasses}}</p>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="delete-remove-onepass-button default-button submit-button" data-event="delete">{{title_button_cancelOnePassesConfirm}}</button></li>
+                <li><button type="button" class="default-button cancel-button" data-event="cancel">{{title_button_dontCancelTheseOnePassesConfirm}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="onepass-created-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> onepass-options-program-info}}
+        <div class="container-divider"></div>
+        {{> dialog-confirm-onepass-created}}
+        <div class="container-divider"></div>
+        {{> if-you-like-this-panel-template}}
+    </div>
+</script>
+
+<script id="cancel-onepass-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> onepass-options-program-info}}
+        <div class="container-divider"></div>
+        {{> dialog-confirm-cancel-onepass}}
+        <div class="container-divider"></div>
+        {{> dialog-buttons-cancel-onepass}}
+    </div>
+</script>
+
+<script id="recording-scheduled-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> confirmation-program-content-detail}}
+        <div class="container-divider"></div>
+        {{> if-you-like-this-panel-template}}
+    </div>
+</script>
+
+<script id="cancel-recording-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> dialog-program-info}}
+        <div class="container-divider"></div>
+        {{> dialog-confirm-cancel-recording}}
+        <div class="container-divider"></div>
+        {{> dialog-buttons-cancel-recording}}
+    </div>
+</script>
+
+<script id="upcoming-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> upcoming-program-info}}
+        <div class="upcoming-dialog-filters info-actions">
+            <span class="hint">{{popup_message_showOnly}}</span>
+            <label class="is-hd-checkbox" for="upcoming-hd-filter"><input id="upcoming-hd-filter" class="js-checkbox js-upcoming-hd-filter" type="checkbox">{{title_label_hd}}</label>
+            <label class="is-new-checkbox" for="upcoming-new-filter"><input id="upcoming-new-filter" class="js-checkbox js-upcoming-new-filter" type="checkbox">{{title_label_new}}</label>
+        </div>
+        <div class="container-divider"></div>
+        <ul class="js-upcoming-dialog-list upcoming-dialog-list"></ul>
+    </div>
+</script>
+
+<script id="upcoming-dialog-line" type="text/html">
+    <li class="js-upcoming-dialog-line dialog-line-item">
+        <div class="line-item-body">
+            <div class="upcoming-episode-title-wrapper">
+                <span class="onepass-status js-status-icon icon-tool-tip"></span>
+                <span class="js-episode-title episode-title"></span>
+                <ul class="js-icon-strip status-icons"></ul>
+            </div>
+            <div class="date-channel-wrapper text-secondary">
+                <span class="js-date date"></span>
+                <span class="js-channel-info channel">{{channelNumber}} {{callSign}}</span>
+                <span class="{{broadcastStatusIconType}} broadcast-status-icon"></span>
+            </div>
+        </div>
+        <div class="line-item-suffix">
+            <span class="js-season-episode season-info season-in-column"></span>
+            <ul class="buttons-container">
+                <li><button type="button" class="record-episode-button default-button" data-action="recordShowAction">{{title_button_record}}</button></li>
+                <li><button type="button" class="recording-options-button default-button" data-action="recordShowAction">{{title_button_options}}</button></li>
+            </ul>
+        </div>
+    </li>
+</script>
+
+<script id="tv-info-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> dialog-program-info}}
+        <div class="container-divider"></div>
+        <div class="user-actions js-button-display-rules">
+            {{> watch-now-buttons}}
+            <button type="button" class="get-onepass-button icon-btn-link" data-action="getOnePassAction">
+                <span class="fa fa-arrow-circle-o-right"></span><span> {{title_button_createOnePass}}</span>
+            </button>
+            <button type="button" class="onepass-options-button icon-btn-link" data-action="getOnePassAction">
+                <span class="fa fa-arrow-circle-o-right"></span><span> {{title_button_onePassOptions}}</span>
+            </button>
+            <button type="button" class="record-episode-button icon-btn-link" data-action="recordShowAction">
+                <span class="fa fa-arrow-circle-o-right"></span><span> {{title_button_recordThisEpisode}}</span>
+            </button>
+            {{> info-dialog-buttons}}
+            <button type="button" class="add-season-streaming-button icon-btn-link" data-action="addSeasonVideo">
+                <span class="fa fa-arrow-circle-o-right"></span>
+            </button>
+            <button type="button" class="streaming-season-added-message icon-btn-link">
+                <span class="image-single-explicit-download"></span>
+            </button>
+        </div>
+    </div>
+</script>
+
+<script id="movie-info-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> dialog-program-info}}
+        <div class="container-divider"></div>
+        <div class="user-actions js-button-display-rules">
+            {{> watch-now-buttons}}
+            <button type="button" class="record-movie-button icon-btn-link" data-action="recordShowAction">
+                <span class="fa fa-arrow-circle-o-right"></span><span> {{title_button_recordThisMovie}}</span>
+            </button>
+            {{> info-dialog-buttons}}
+        </div>
+    </div>
+</script>
+
+<script id="watch-now-buttons" type="text/html">
+    <button type="button" class="watch-now-button default-button play-btn text-primary-contrast" data-action="watchNowAction">
+        <span class="play-icon fa-stack">
+            <i class="fa fa-play-circle fa-stack-1x"></i>
+            <i class="fa fa-circle-thin fa-stack-1x"></i>
+        </span>
+        <span>{{title_button_watchNow}}</span>
+    </button>
+    <button type="button" class="resume-button default-button play-btn text-primary-contrast" data-action="watchNowAction">
+        <span class="play-icon fa-stack">
+            <i class="fa fa-play-circle fa-stack-1x"></i>
+            <i class="fa fa-circle-thin fa-stack-1x"></i>
+        </span>
+        <span>{{title_button_resume}}</span>
+    </button>
+</script>
+
+<!-- Program Info Panel holds thumbnail, title, Explore This Show link, etc. -->
+<!-- Different dialogs have slightly different versions, so we can create several versions or adjust with CSS. -->
+<script id="dialog-program-info" type="text/html">
+    <div class="poster-wrapper ui-helper-clearfix">
+        <div class="js-image-data poster-container poster-set-D"></div>
+        <div class="show-title-area">
+            <div class="js-title-area title-info">
+                {{> program-info-title-header}}
+                {{> content-detail-episode-template}}
+                <span class="js-offer text-primary offer-text"></span>
+                {{> show-description-template}}
+                <div class="js-cast-list cast-list guest-roles-only"></div>
+            </div>
+            <div class="js-branding-partners branding-partners"></div>
+            {{> explore-this-link}}
+        </div>  
+    </div>
+</script>
+
+<script id="onepass-options-program-info" type="text/html">
+    <div class="poster-wrapper ui-helper-clearfix">
+        <div class="js-image-data poster-container poster-set-D"></div>
+        <div class="show-title-area">
+            <div class="js-title-area title-info">
+                {{> program-info-title-header}}
+                {{> onepass-options-show-description-template}}
+                <div class="js-cast-list cast-list"></div>
+            </div>
+            {{> explore-this-link}}
+        </div>
+    </div>
+</script>
+
+<script id="upcoming-program-info" type="text/html">
+    <div class="poster-wrapper ui-helper-clearfix">
+        <div class="js-image-data poster-container poster-set-D"></div>
+        <div class="show-title-area">
+            <div class="js-title-area title-info">
+                {{> program-info-title-header}}
+                {{> show-description-template}}
+            </div>
+            <div class="js-branding-partners branding-partners"></div>
+            {{> explore-this-link}}
+        </div>  
+    </div>
+</script>
+
+<script id="confirmation-program-content-detail" type="text/html">
+    <div class="poster-wrapper ui-helper-clearfix">
+        <div class="js-image-data poster-container poster-set-D"></div>
+        <div class="show-title-area">
+            <div class="js-title-area title-info">
+                {{> program-info-title-header}}
+                {{> content-detail-episode-template}}
+                <span class="js-offer text-primary offer-text"></span>
+                {{> show-description-template}}
+                <div class="js-cast-list cast-list guest-roles-only"></div>
+            </div>
+            <div class="js-branding-partners branding-partners"></div>
+            {{> explore-this-link}}
+        </div>
+    </div>
+</script>
+
+<script id="program-info-title-header" type="text/html">
+    <h3 class="js-show-header title-header">
+        {{> content-details-title-line}}
+    </h3>
+</script>
+
+<script id="explore-this-link" type="text/html">
+    <div class="explore-link-wrapper">
+        <a class="js-content-detail-link explore-series-link link-secondary">
+            {{title_button_exploreThisShow}} >
+        </a>
+        <a class="js-content-detail-link explore-movie-link link-secondary">
+            {{title_button_exploreThisMovie}} >
+        </a>
+    </div>
+</script>
+
+<!-- Dialog dropdown options -->
+<!-- TODO: Replace placeholder divs with actual templates -->
+<script id="dialog-dropdowns-onepass-options" type="text/html">
+    <div class="dialog-dropdown">
+        <label for="include">{{title_label_include}}</label>
+        <select class="js-monitored-for-change" name="include" id="include">
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="startFrom">{{title_label_startFrom}}</label>
+        <select class="js-monitored-for-change" name="startFrom" id="startFrom">
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="cost">{{title_label_cost}}</label>
+        <select name="cost" id="cost">
+        </select>
+    </div>
+</script>
+
+<script id="dialog-dropdowns-recording-options" type="text/html">
+    <div class="dialog-dropdown">
+        <label for="record">{{title_label_record}}</label>
+        <select name="record" id="record">
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="channel">{{title_label_channel}}</label>
+        <select class="js-monitored-for-change" name="channel" id="channel">
+            <option value="ALL">{{title_onepass_dropdown_channelOption_all}}</option>
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="hdPreference">{{title_label_getInHd}}</label>
+        <select name="hdPreference" id="hdPreference">
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="keepAtMost">{{title_label_keepAtMost}}</label>
+        <select name="keepAtMost" id="keepAtMost">
+        </select>
+    </div>
+    {{> dialog-dropdowns-recording-only-options}}
+</script>
+
+<script id="dialog-dropdowns-recording-only-options" type="text/html">
+    <div class="dialog-dropdown">
+        <label for="keepUntil">{{title_label_keepUntil}}</label>
+        <select name="keepUntil" id="keepUntil">
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="startRecording">{{title_label_startRecording}}</label>
+        <select name="startRecording" id="startRecording">
+        </select>
+    </div>
+    <div class="dialog-dropdown">
+        <label for="stopRecording">{{title_label_stopRecording}}</label>
+        <select name="stopRecording" id="stopRecording">
+        </select>
+    </div>
+</script>
+
+<!-- Snippets for OnePass confirmation messages -->
+<!-- TODO: Replace description class -->
+<script id="dialog-confirm-onepass-created" type="text/html">
+    <p class="js-confirmation dialog-message">{{{title_popup_createOnePassConfirmation}}}</p>
+</script>
+
+<script id="dialog-confirm-cancel-onepass" type="text/html">
+    <p class="js-confirmation dialog-message">{{title_popup_doYouWantToCancelOnePass}}</p>
+</script>
+
+<script id="dialog-confirm-recording-scheduled" type="text/html">
+    <p class="js-confirmation dialog-message">{{title_popup_recordingScheduled}}</p>
+</script>
+
+<script id="dialog-confirm-cancel-recording" type="text/html">
+    <p class="js-confirmation dialog-message">{{message_doYouWantToCancelThisRecording}}</p>
+</script>
+
+<script id="dialog-what-would-you-like-message" type="text/html">
+    <p class="dialog-message">{{message_whatWouldYouLikeToDo}}</p>
+</script>
+
+<!-- Snippets for OnePass dialog buttons -->
+<script id="dialog-buttons-cancel-onepass" type="text/html">
+    <div class="user-actions">
+        <ul class="vertical-list text-center extra-wide-buttons">
+            <li><button type="button" class="default-button" data-event="cancelOnePass">{{title_button_cancelOnePassConfirm}}</button></li>
+            <li><button type="button" class="default-button" data-event="cancel">{{title_button_dontCancelThisOnePassConfirm}}</button></li>
+        </ul>
+    </div>
+</script>
+
+<script id="dialog-buttons-cancel-recording" type="text/html">
+    <div class="user-actions">
+        <ul class="vertical-list text-center extra-wide-buttons">
+            <li><button type="button" class="default-button" data-event="cancelRecording">{{title_button_cancelThisRecordingConfirm}}</button></li>
+            <li><button type="button" class="default-button" data-event="cancel">{{title_button_dontCancelThisRecordingConfirm}}</button></li>
+        </ul>
+    </div>
+</script>
+
+<script id="show-description-template" type="text/html">
+    <div class="show-description">
+        <span class="js-description description"></span>
+        <div class="description-trailer text-secondary">
+            <span class="js-tv-rating tv-rating"></span>
+            <span class="js-genre-list genre-list"></span>
+            <span class="js-first-aired first-aired"></span>
+        </div>
+    </div>
+</script>
+
+<script id="onepass-options-show-description-template" type="text/html">
+    <div class="show-description">
+        <span class="js-description description"></span>
+        <div class="description-trailer text-secondary">
+            <span class="js-tv-rating tv-rating"></span>
+            <span class="js-genre-list genre-list"></span>
+            <span class="js-series-show-card series-show-card"></span>
+        </div>
+    </div>
+</script>
+
+<script id="info-dialog-buttons" type="text/html">
+    <button type="button" class="recording-options-button icon-btn-link" data-action="recordShowAction">
+        <span class="fa fa-arrow-circle-o-right"></span><span> {{title_button_recordOptions}}</span>
+    </button>
+    <button type="button" class="create-wishlist-button icon-btn-link" data-action="wishListAction">
+        <span class="fa fa-arrow-circle-o-right"></span><span> Create a WishList</span>
+    </button>
+    <button type="button" class="add-streaming-video-button icon-btn-link" data-action="addStreamingVideo">
+        <span class="fa fa-arrow-circle-o-right"></span><span> {{title_button_addThisStreamingVideo}}</span>
+    </button>
+    <button type="button" class="streaming-video-added-message icon-btn-link">
+        <span class="image-single-explicit-download"></span><span> {{title_button_streamingVideoAdded}}</span>
+    </button>
+</script>
+
+<!-- OnePass conflicts dialog -->
+<script id="onepass-conflicts-dialog" type="text/html">
+    <div class="dialog-body onepass-conflicts-dialog">
+        <div class="recording-conflict-container">
+            <p class="conflict-type-message">{{conflictTypeMessage}}</p>
+            <!-- scheduled recording section -->
+            <!-- TODO: Figure out how to properly i18n this (server side) -->
+            <p class="will-record js-will-record">Will record {{conflicts.toBeScheduled.count}} episodes of <span class="text-highlight">{{conflicts.toBeScheduled.firstScheduledAiring.title}}</span> on {{conflicts.toBeScheduled.firstScheduledAiring.channel.channelNumber}} {{conflicts.toBeScheduled.firstScheduledAiring.channel.callSign}}.</p>
+
+            <!-- unscheduled recording section -->
+            <div class="conflicts-not-scheduled-container">
+                {{> onepass-conflicts-not-scheduled-list}}
+            </div>
+
+            <!-- clipped recording section -->
+            <div class="conflicts-clipped-container">
+                {{> onepass-conflicts-clipped-list}}
+            </div>
+        </div>	
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="default-button" data-action="getAsShown">{{title_button_getOnePassAsShown}}</button></li>
+                <li><button type="button" class="default-button" data-action="getAllEpisodes">{{title_button_getAllEpisodesThisOnePass}}</button></li>
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_dontGetThisOnePass}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- Recording conflicts dialog -->
+<script id="recording-conflicts-dialog" type="text/html">
+    <div class="dialog-body recording-conflicts-dialog">
+        <div class="recording-conflict-container">
+            <p class="conflict-type-message">{{conflictTypeMessage}}</p>
+            <!-- scheduled recording section -->
+            <p class="will-record js-will-record"></p>
+
+            <!-- unscheduled recording section -->
+            <div class="conflicts-not-scheduled-container">
+                {{> onepass-conflicts-not-scheduled-list}}
+            </div>
+
+            <!-- clipped recording section -->
+            <div class="conflicts-clipped-container">
+                {{> onepass-conflicts-clipped-list}}
+            </div>
+        </div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="default-button" data-action="getAsShown">{{title_button_conflicts_getRecordingAsShown}}</button></li>
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_dontScheduleThisRecording}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="onepass-conflicts-not-scheduled-list" type="text/html">
+    <p class="js-list-header">{{message_conflicts_willNotRecord}}</p>
+    <div class="js-not-scheduled-wrapper">
+        <ul class="conflicts-list js-not-scheduled-list"></ul>
+    </div>
+</script>
+
+<script id="onepass-conflicts-clipped-list" type="text/html">
+    <p class="js-list-header">{{message_conflicts_willbeClipped}}</p>
+    <div class="js-clipped-wrapper">
+        <ul class="conflicts-list js-clipped-list"></ul>
+    </div>
+</script>
+
+<!-- TODO: Update the Mustache values when interface is updated -->
+<script id="onepass-conflicts-resolution-list-item-template" type="text/html">
+    <li class="conflict-line">
+        <span class="column solution-icon js-solution-icon image-conflict"></span>
+        <span class="column title">{{solution.subTitle}}</span>
+        <span class="column date">{{solution.date}}</span>
+        <span class="column time-start text-highlight">{{solution.startTime}}</span>
+        <span class="column time-end text-highlight">{{solution.endTime}}</span>
+        <span class="column channel">{{solution.callSign}}</span>
+
+        <!-- overlaps info section -->
+        <div class="column full text-secondary">
+            <span class="js-overlaps">{{message_conflicts_overlaps}}</span>
+            <span class="js-source-title">{{source.title}}</span>
+            <span class="js-source-start">{{source.startTime}}</span>
+            <span class="js-source-end">{{source.endTime}}</span>
+        </div>
+    </li>
+</script>
+
+
+<script id="wishlist-created-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> confirmation-program-content-detail}}
+        <div class="container-divider"></div>
+        <div class="dialog-message notification-area show-notification-message">
+            <span class="status-icon image-checkmark"></span>
+            <span class="notification-message text-highlight"></span>
+        </div>
+        <div class="container-divider"></div>
+        {{> if-you-like-this-panel-template}}
+    </div>
+</script>
+
+<script id="wishlist-person-created-dialog" type="text/html">
+    <div class="dialog-body wishlist-person-panel">
+        <div class="poster-wrapper ui-helper-clearfix">
+            <div class="poster-container cast-set-D">
+                <div class="js-person-image img-container loading"></div>
+            </div>
+            <div class="show-title-area">
+                <h2 class="title-header"><a class="js-person-name text-highlight"></a></h2>
+                <div class="dialog-message notification-area show-notification-message">
+                    <span class="status-icon image-checkmark"></span>
+                    <span class="notification-message text-highlight"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="wishlist-options-dialog" type="text/html">
+    <div class="dialog-body">
+        {{> confirmation-program-content-detail}}
+        <div class="container-divider"></div>
+        <p class="dialog-message">{{message_subheading_wishListCancel}}</p>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center wide-buttons">
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_keepWishlist}}</button></li>
+                <li><button type="button" class="default-button" data-event="cancelWishList">{{title_button_cancelWishlist}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="todo-cancel-single-dialog" type="text/html">
+    <div class="todo-delete-dialog">
+        <p class="dialog-message text-center">{{message_doYouWantToCancelThisRecording}}</p>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="default-button" data-event="cancelRecordings">{{title_button_cancelThisRecordingConfirm}}</button></li>
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_dontCancelThisRecordingConfirm}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="todo-cancel-multiple-dialog" type="text/html">
+    <div class="todo-delete-dialog">
+        <p class="dialog-message text-center">{{message_doYouWantToCancelTheseRecordings}}</p>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center extra-wide-buttons">
+                <li><button type="button" class="default-button" data-event="cancelRecordings">{{title_button_cancelTheseRecordingsConfirm}}</button></li>
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_dontCancelTheseRecordingsConfirm}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="manage-conflicts-dialog" type="text/html">
+    <div class="manage-conflicts-dialog">
+        <ul class="conflicts-list js-conflicts-list"></ul>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center">
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_OK}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="unsupported-dvr-message-template" type="text/html">
+    <div class="dialog-body unsupported-dvr">
+        <div class="dialog-message">
+            <p>{{message_unsupportedDvr}}</p>
+        </div> 
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center">
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_OK}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="welcome-dialog-template" type="text/html">
+    <div class="dialog-body welcome-dialog">
+        <div class="dialog-message">
+            <p>{{message_welcome_fromTivoOnline}}</p>
+            <ul>
+                <li class="message-list-item">{{message_welcome_findAndWatchShows}}</li>
+                <li class="message-list-item">{{message_welcome_streamRecordings}}</li>
+                <li class="message-list-item">{{message_welcome_createOnePasses}}</li>
+                <li class="message-list-item">{{message_welcome_manageRecordings}}</li>
+            </ul>
+            <p class="link-secondary new-window" data-destination="{{mso_link_howToVideo_url}}">{{message_welcome_learnMore}}</p>
+            <p class="link-secondary new-window" data-destination="{{mso_link_exploreTivoServices_url}}">{{message_welcome_exploreTivoServices}}</p>
+        </div>
+        <div class="container-divider"></div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center wide-buttons">
+                <!-- Go directly to the target URL without trying to navigate. So keep this an <a> element. -->
+                <li><a class="default-button" href="/tve/login">{{title_button_signInForFullAccess}}</a></li>
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_continueAsGuest}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="cannot-copy-onepass-dialog-template" type="text/html">
+    <div class="dialog-body onepass-to-non-onepass-dialog">
+        <div class="dialog-message">
+            <p>{{message_notification_cannotCopyOnePasses}}</p>
+        </div>
+        <div class="user-actions">
+            <ul class="vertical-list text-center">
+                <li><button type="button" class="default-button" data-event="cancel">{{title_button_OK}}</button></li>
+            </ul>
+        </div>
+    </div>
+</script>

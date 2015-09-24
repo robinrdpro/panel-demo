@@ -1,0 +1,106 @@
+<!-- Copyright 2014 TiVo Inc. All Rights Reserved. -->
+
+<!------------------------------------------------------------------------------------------->
+<!-- These are the overall templates used for the Guide description slide-outs.
+<!------------------------------------------------------------------------------------------->
+
+<script id="guide-content-details-tv-template" type="text/html">
+    <div class="description-content">
+        <div class="js-image-data description-img poster-container poster-set-D"></div>
+        <div class="description-data">
+            <h3 class="description-header">
+                <a class="js-episode-title episode-title link-secondary"></a>
+                <ul class="js-icon-strip status-icons"></ul>
+            </h3>
+
+            {{> guide-content-description-template}}
+        </div>
+          <div style="clear:both;"></div>
+    </div>
+</script>
+
+<script id="guide-content-details-movie-template" type="text/html">
+    <div class="description-content request clearfix">
+        <div class="js-image-data description-img poster-container poster-set-D"></div>
+        <div class="description-data">
+            <h3 class="description-header">
+                <a class="js-title link-secondary"></a>
+                <span class="js-star-rating"></span>
+                <ul class="js-icon-strip status-icons"></ul>
+            </h3>
+
+            {{> guide-content-description-template}}
+        </div>
+          <div style="clear:both;"></div>
+    </div>
+</script>
+
+<!------------------------------------------------------------------------------------------->
+<!-- These are the partials that are common to presentations of the Guide description slide-outs.
+<!------------------------------------------------------------------------------------------->
+
+<script id="guide-content-description-template" type="text/html">
+    <div>
+        <div class="show-description">
+            <span class="js-genre-list genre-list text-secondary"></span>
+            <span class="js-description description"></span>
+            <span class="js-first-aired first-aired text-secondary"></span>
+            <div>
+                <span class="duration text-secondary">{{duration}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="show-actions-availability">
+        {{> content-details-notifications}}       
+        {{> content-details-action-buttons}}
+    </div>
+</script>
+
+<script id="guide-timebar-template" type="text/html">
+    <li class="{{slotHeaderClass}}">
+        <span class="content" rel="{{slotMainTime}}">{{slotDisplayTime}}</span>
+    </li>
+</script>
+
+<script id="guide-channel-container-template" type="text/html">
+    <div class="channel {{channelLocked}}" data-channel-number="{{channelNumber}}">
+        <div class="content js-channel-content">
+            <div class="name {{linearStreamingChannelClass}}">
+                <span class="channel-number">{{channelNumber}}</span>
+                <img class="channel-logo" src="{{logoUrl}}"/>
+                <span class="channel-sign">{{callSign}}</span>
+                <span class="{{linearStreamingLinkClass}}"></span>
+                <span class="default-button watch-now play-btn text-primary-contrast" data-destination="{{streamingUrl}}">{{title_button_watchNow}}</span>
+            </div>
+            <ul class="shows"></ul>
+        </div>
+    </div>
+</script>
+
+<script id="guide-show-template" type="text/html">
+    <li class="{{categories}}" style="width:{{width}}px;">
+        <div class="js-guide-cell">
+            <div class="show-description-container">
+                <span class="show-description" show-time="{{startTime}}" id="{{id}}" title="{{title}}" catchup="{{isCatchup}}">{{titleStr}}</span>
+                <span class="{{catchupClass}} icon-tool-tip"></span>
+                <span class="current-playing image-available-online"></span>
+            </div>
+            <div class="show-description-details">
+                <p class="star-rating {{starRatingClass}}"></p>
+                <p class="mpaa-rating">{{mpaaRating}}</p>
+                <p class="guide-show-subtitle">{{subtitle}}</p>
+                <p class="episode-num"> {{seasonEpisode}}</p>
+            </div>
+        </div>
+    </li>
+</script>
+
+<script id="guide-tba-template" type="text/html">
+    <li style="width:{{width}}px;">
+        <div class="js-guide-cell">
+            <h3>
+                <span class="show-description" title="{{title_label_toBeAnnounced}}">{{title_label_toBeAnnounced}}</span>
+            </h3>
+        </div>
+    </li>
+</script>

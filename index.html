@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.1/processing-api.min.js"></script>
+<meta name="description" content="Slider Info/Panel Demo" />
+  <meta charset="utf-8">
+  <title>Slider Info/Panel Demo</title>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.css">
+<link rel='stylesheet' type="text/css" href="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/css/vendor/qtip2/jquery.qtip.css">
+<link rel="stylesheet" type="text/css" href="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/vendor/ezmark/css/ezmark.css">
+<link rel='stylesheet' type="text/css" href="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/css/vendor/jquery-ui/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/css/common.css">
+<link rel="stylesheet" type="text/css" href="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/tivo/css/theme.css">
+   
+
+<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro'>
+<link rel="stylesheet" type="text/css" href="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/hydra/css/core.css">
+
+<script type="text/template" src="actions_button_list.html"></script>
+<script type="text/template" src="content_details.html"></script>
+<script type="text/template" src="dialog_panels.html"></script>
+<script id="feed-template" type="text/html">
+  <li><div class="img-container"><img src=""/></div>
+  </li>
+</script>
+<script id="follow-links-template" type="text/html">
+    <div class="follow-links">
+        <span class="link-secondary">Episodes</span> | <span class="link-secondary">Cast & Crew</span>
+    </div>
+</script>
+<script id="airing-info-template" type="text/html">
+    <div class="airing-info">
+        <i class="image-keep-sm"/> <span class="airing-datetime">Fri 10/24 9:45am - 11:30am</span> <span class="airing-duration">1hr</span>
+    </div>
+</script>
+<script id="guest-stars-template" type="text/html">
+    <div class="guest-stars">
+        <span class="guest-stars-label">Guest stars:</span> <span class="actor-name">Actor Name</span>, <span class="actor-name">Actor Name</span>
+    </div>
+</script>
+
+<script id="feed-content-details-template" type="text/html">
+    <div class="feed-content-detail-panel">
+        <div class="content-container">
+            <div class="js-image-data poster-container poster-set-B content-image"></div>
+            <div class="content-description">
+                <h2 class="main-title">{{> content-details-title-line}}</h2>
+                <div class="detail-panel-subtitle">{{> content-details-subtitle-line}}</div>
+                {{> content-details-description}}
+                {{> airing-info-template}}
+                {{> guest-stars-template}}
+                {{> content-details-notifications}} 
+                {{> follow-links-template}}
+                {{> content-details-branding}}        
+                {{> content-details-action-buttons}}
+                <ul class="action-buttons actions-button-list show-get-this-show-button show-upcoming-button">
+                    <li class="button-display-rules show-watch-now">
+                        <div class="watch-now-buttons" aria-disabled="false">
+                            <button data-action="watchNowAction" class="watch-now-button default-button play-btn text-primary-contrast" type="button">
+                                <span class="play-icon fa-stack">
+                                    <i class="fa fa-play-circle fa-stack-1x"></i>
+                                    <i class="fa fa-circle-thin fa-stack-1x"></i>
+                                </span>
+                                <span>Watch now</span>
+                            </button>
+                            <button data-action="watchNowAction" class="resume-button default-button play-btn text-primary-contrast" type="button">
+                                <span class="play-icon fa-stack">
+                                    <i class="fa fa-play-circle fa-stack-1x"></i>
+                                    <i class="fa fa-circle-thin fa-stack-1x"></i>
+                                </span>
+                                <span>Resume</span>
+                            </button>
+                        </div>
+                    </li>
+                    <li><button class="get-this-show-button default-button" type="button" data-dropdown="#buttonStack2009">Get this show</button></li>
+                    <li><button data-event="show-upcoming" class="upcoming-button default-button" type="button">Upcoming</button></li>
+                </ul>
+            </div>
+        </div>
+        <button class="close rounded-background" type="button"><svg class="close-x" viewBox="0 0 40 40">
+        <path d="M 10,10 L 30,30 M 30,10 L 10,30" class="close-x"/></svg></button>
+        <div style="clear:both;"></div>
+    </div>     
+</script>
+
+<script type="text/javascript">
+  window.appManager = {
+      initializeNewDomContent: function(){}
+  }   
+</script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/underscorejs/1.4.4/underscore.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/backbonejs/1.0.0/backbone.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/vendor/class.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/vendor/mustache/mustache.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/vendor/jquery.mustache/jquery.mustache.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/vendor/moment/moment.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/managers/template_manager.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/managers/i18n_manager.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com//assets/tve/common/i18n/messages_en.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com//assets/tve/tivo/i18n/messages_en_US_tivo.js"></script>
+<script type="text/javascript">i18n.setLocale("en_US_tivo");</script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/actions/always_available_action.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/actions/guest_check_panel.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/actions/watch_now_action.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/actions/get_onepass_action.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/button_stack.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/actions_button_list.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/content_detail_panel.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/content_image.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/image_with_fallback.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/content_details.js"></script>
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/branding_partner_list.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/feed_list.js"></script>
+
+<script type="text/javascript" src="http://tve-ws-stdev-tivo.elasticbeanstalk.com/assets/tve/common/js/widgets/view_toggle.js"></script>
+
+<script type="text/javascript" src="https://tve-web.s3.amazonaws.com/jquery.scrollintoview.js"></script>
+<script type="text/javascript" src="http://ricostacruz.com/jquery.transit/jquery.transit.js"></script>
+<script src="https://flickity.s3.amazonaws.com/flickity.pkgd.js"></script>
+<link rel="stylesheet" href="https://flickity.s3.amazonaws.com/flickity.css">
+
+<link rel="stylesheet" type="text/css" href="demo.css">
+
+<script type="text/javascript" src="demo.js"></script>
+
+</head>
+<body>
+<div id="main-content">
+  <header class="top-header">
+    <div class="logo-mini-nav">
+      <img src="tivo.png">
+      <span class="menu-icon">☰</span>
+    </div>
+    <ul class="menu-nav">
+      <li>What To Watch</li><li>My Shows</li><li>Guide</li><li>Browse TV &amp; Movies</li><li>Manage</li>
+      <ul>
+          <li>TV Shows</li><li>Movies</li><li>Sports</li><li>Kids</li>
+      </ul>
+    </ul>
+  </header>
+
+  <div class="feed-list-container">
+    <div class="feed-carousel js-carousel" data-feed-name="tveStartFeed4">
+      <div class="heading-container ui-helper-clearfix">
+        <h3 class="js-feed-heading heading">On Live TV</h3>
+        <h5 class="text-alt">View Guide</h5>
+      </div>
+      <ul class="items"></ul>
+    </div>
+
+
+    <div class="feed-carousel js-carousel" data-feed-name="tveStartFeed3Tv">
+      <div class="heading-container ui-helper-clearfix">
+        <h3 class="js-feed-heading heading">My Shows</h3>
+        <h5 class="text-alt">View My Shows</h5>
+      </div>      
+      <ul class="items"></ul>
+    </div>
+    
+    <div class="feed-carousel js-carousel" data-feed-name="tveStartFeed1">
+      <div class="heading-container ui-helper-clearfix">
+        <h3 class="js-feed-heading heading">Featured On Demand</h3>
+        <h5 class="text-alt">View On Demand</h5>
+      </div>
+      <ul class="items"></ul>
+    </div>
+    
+    <div class="feed-carousel js-carousel" data-feed-name="tveStartFeed5">
+      <div class="heading-container ui-helper-clearfix">
+        <h3 class="js-feed-heading heading">Top TV This Week</h3>
+        <h5 class="text-alt">View All</h5>
+      </div>
+      <ul class="items"></ul>
+    </div>
+    
+    <div class="feed-carousel js-carousel" data-feed-name="tveStartFeed6">
+      <div class="heading-container ui-helper-clearfix">
+        <h3 class="js-feed-heading heading">Emmy Award Winning TV</h3>
+        <h5 class="text-alt">View All</h5>
+      </div>
+      <ul class="items"></ul>
+    </div>
+    
+    <div class="feed-carousel js-carousel" data-feed-name="tveStartFeed7">
+      <div class="heading-container ui-helper-clearfix">
+        <h3 class="js-feed-heading heading">Miami Herald Recommends</h3>
+        <h5 class="text-alt">View All</h5>
+      </div>
+      <ul class="items"></ul>
+    </div>
+
+
+  </div>  
+</body>
+</html>

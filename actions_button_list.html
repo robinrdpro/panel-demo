@@ -1,0 +1,59 @@
+<!-- Copyright 2015 TiVo Inc. All Rights Reserved. -->
+
+<!-- Button sets for OnePass boxes -->
+<script id="content-detail-onepass-action-buttons" type="text/html">
+    <li>
+        <div class="watch-now-buttons">
+            {{> watch-now-buttons}}
+        </div>
+    </li>
+    <li>{{> get-this-show-action-button}}</li>
+    <li>{{> wishlist-action-button}}</li>
+</script>
+
+<script id="onepass-action-buttons" type="text/html">
+    <li>
+        <div class="watch-now-buttons">
+            {{> watch-now-buttons}}
+        </div>
+    </li>
+    <li>{{> get-this-show-action-button}}</li>
+    <li>{{> upcoming-action-button}}</li>
+</script>
+
+<script id="onepass-flyout-action-buttons" type="text/html">
+    <li>
+        <div class="watch-now-buttons">
+            {{> watch-now-buttons}}
+        </div>
+    </li>
+    <li>{{> more-options-button}}</li>
+    <li>{{> upcoming-action-button}}</li>
+</script>
+
+<script id="default-onepass-action-buttons" type="text/html">
+    <li>
+        <div class="watch-now-buttons">
+            {{> watch-now-buttons}}
+        </div>
+    </li>
+    <li>{{> get-this-show-action-button}}</li>
+    <li>{{> wishlist-action-button}}</li>
+    <li>{{> upcoming-action-button}}</li>
+</script>
+
+<script id="get-this-show-action-button" type="text/html">
+    <button type="button" class="get-this-show-button default-button">{{title_button_getThisShow}}</button>
+</script>
+
+<script id="more-options-button" type="text/html">
+    <button type="button" class="more-options-button default-button">{{title_button_moreOptions}}</button>
+</script>
+
+<script id="wishlist-action-button" type="text/html">
+    <button type="button" class="create-wishlist-button default-button" data-action="wishListAction">{{title_button_wishList}}</button>
+</script>
+
+<script id="upcoming-action-button" type="text/html">
+    <button type="button" class="upcoming-button default-button" data-event="show-upcoming">{{title_button_upcoming}}</button>
+</script>

@@ -1,0 +1,147 @@
+
+/** Override non-mobile friendly stuff in our CSS */
+body {
+    font: 13px/1.6923076923 "Source Sans Pro",arial,helvetica,clean,sans-serif;
+    min-width: 0; /* default */
+}
+
+/** undo parts of the Theme **/
+
+body {
+    background: rgb(10, 26, 41) none repeat scroll 0 0;
+}
+
+/* nav/header */
+.header-container {
+    box-shadow: none;
+    border-bottom: 1px solid gray;
+}
+.logo-mini-nav {
+    margin: 5px 100px;
+}
+
+.menu-icon {
+    display: none;
+}
+.menu-nav {
+    display: none;
+}
+
+
+/* on start, margin the left only */
+.feed-list-container {
+    margin-left: 100px;
+}
+
+.cast-set-D .items, .cast-set-D li {
+    overflow: visible;
+}
+
+li.mov, li.tv {
+    margin-right: 10px;
+}
+.feed-carousel .tv .img-container {
+    height: 150px;
+    width: 200px;
+}
+.feed-carousel .mov .img-container {
+    height: 150px;
+    width: 100px;
+}
+
+/* hover / selected effect. Scales element (note viewport clips Y) */
+
+.feed-carousel li.ui-state-selected .img-container {
+    transform: scale(.9, .9);
+    transition: 200ms ease-in-out
+}
+/*.feed-carousel li.tv:not(.ui-state-selected):hover .img-container, li.tv:not(.ui-state-selected):hover .img-container {
+    transform: scale(1.1, 1.1);
+    transition: 200ms ease-in-out
+}
+*/
+
+body .img-container.ui-state-hover {
+    transform: scale(1.1, 1.1);
+    transition: 200ms ease-in-out
+}
+
+/* feed heading */
+
+.heading-container {
+    margin: 30px 0 8px;
+    position: relative;
+}
+
+/* TODO - probably not the best way to flush bottom the smaller heading text */
+.heading-container > h5 {
+    position: absolute;
+    margin: 0;
+    right: 20px;
+    bottom: 0;
+    font-size: 1.0em;
+}
+
+.heading-container > h3 {
+    float: left;
+    margin: 0;
+}
+
+/** show info panel **/
+
+/** Note, this is done as padding to include it as scrolled into view */
+.feed-content-detail-panel {
+    padding: 30px 0 15px 0;
+}
+.feed-content-detail-panel .poster-container {
+    float: left;
+    margin-right: 20px;
+}
+.description {
+    max-height: 5.9em;  /* max lines = 7 */
+    max-width: 90%;
+    overflow: hidden;
+}
+
+h2.main-title {
+    margin-bottom: .2em;
+    color: #ffffff;
+}
+
+.text-highlight {
+    color: #ffffff;
+}
+
+.airing-info .image-keep-sm {
+    position: relative;
+    top: 5px;
+}
+.branding-partner-icon {
+    width: 25px;
+    height: 20px;
+}
+.guest-stars, .guest-stars-label, .actor-name {
+    color: #929292;
+}
+
+/** close box */
+button.close {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+button.rounded-background {
+    background: black;
+    border-radius: 50%;
+    border: medium none;
+}
+
+.close-x {
+  stroke: rgb(146, 146, 146);
+  fill: transparent;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
